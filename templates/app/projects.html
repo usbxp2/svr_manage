@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load my_page %}
+
+{% block page-header %} 项目信息 {% endblock %}
+
+{% block page-content %}
+<table class="table table-hover mytable">
+    <thead>
+        <tr>
+            <th>公司名称</th>
+            <th>项目名称</th>
+            <th>域名</th>
+            <th>项目状态</th>
+            <th>到期日期</th>
+            <th>FTP</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects_list %}
+        <tr>
+            <td><a href="{% url 'projects_detail' project.id %}">{{ project.com_name }}</a></td>
+            <td>{{ project.name}}</td>
+            <td>{{ project.domain }}</td>
+            <td>{{ project.get_status_display }}</td>
+            {{ project.exp_date|time_color }}
+            <td>{{ project.ftp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- 页码导航 -->
+<nav>
+  <ul class="pagination">
+    {% if projects_list.has_previous %}
+        <li class=""><a href="?page={{ projects_list.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    {% endif %}
+
+    {% for page_num in projects_list.paginator.page_range %}
+     {% if page_num == projects_list.number %}
+        <li class="active"><a href="?page={{ page_num }}">{{ page_num }}<span class="sr-only">(current)</span></a></li>
+     {% else %}
+         #分页标签
+        {% page_cut projects_list.number page_num %}
+     {% endif %}
+    {% endfor %}
+
+    {% if projects_list.has_next %}
+        <li class=""><a href="?page={{ projects_list.next_page_number }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+
+{#<div style="text-align: center">#}
+{#    <span>#}
+{#        {% if customer_list.has_previous %}#}
+{#             <a href="?page={{ customer_list.previous_page_number }}">上一页</a>#}
+{#        {% endif %}#}
+{#        <span>#}
+{#            {{ customer_list.number }}/{{ customer_list.paginator.num_pages }}#}
+{#        </span>#}
+{#        {% if customer_list.has_next %}#}
+{#            <a href="?page={{ customer_list.next_page_number }}">下一页</a>#}
+{#        {% endif %}#}
+{#    </span>#}
+{#</div>#}
+{% endblock %}

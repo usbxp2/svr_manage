@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load my_page %}
+
+{% block page-header %} 服务器信息 {% endblock %}
+
+{% block page-content %}
+<table class="table table-hover mytable">
+    <thead>
+        <tr>
+            <th>主机名</th>
+            <th>云服务商</th>
+            <th>公网IP</th>
+            <th>内网IP</th>
+            <th>带宽</th>
+            <th>操作系统</th>
+            <th>配置</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for host in hosts_list %}
+        <tr>
+            <td><a href="{% url 'hosts_detail'  host.id %}">{{ host.name }}</a></td>
+            <td>{{ host.source_from}}</td>
+            <td>{{ host.ip }}</td>
+            <td>{{ host.private_ip }}</td>
+            <td>{{ host.bandwidth }}M</td>
+            <td>{{ host.get_os_system_display }}</td>
+            <td>{{ host.hardware }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- 页码导航 -->
+<nav>
+  <ul class="pagination">
+    {% if hosts_list.has_previous %}
+        <li class=""><a href="?page={{ hosts_list.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    {% endif %}
+
+    {% for page_num in hosts_list.paginator.page_range %}
+     {% if page_num == hosts_list.number %}
+        <li class="active"><a href="?page={{ page_num }}">{{ page_num }}<span class="sr-only">(current)</span></a></li>
+     {% else %}
+         #分页标签
+        {% page_cut hosts_list.number page_num %}
+     {% endif %}
+    {% endfor %}
+
+    {% if hosts_list.has_next %}
+        <li class=""><a href="?page={{ hosts_list.next_page_number }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+
+{#<div style="text-align: center">#}
+{#    <span>#}
+{#        {% if customer_list.has_previous %}#}
+{#             <a href="?page={{ customer_list.previous_page_number }}">上一页</a>#}
+{#        {% endif %}#}
+{#        <span>#}
+{#            {{ customer_list.number }}/{{ customer_list.paginator.num_pages }}#}
+{#        </span>#}
+{#        {% if customer_list.has_next %}#}
+{#            <a href="?page={{ customer_list.next_page_number }}">下一页</a>#}
+{#        {% endif %}#}
+{#    </span>#}
+{#</div>#}
+{% endblock %}

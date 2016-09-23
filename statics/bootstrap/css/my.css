@@ -1,0 +1,28 @@
+.signed {
+    background-color: green;
+}
+
+.unregistered {
+    background-color: orange;
+}
+
+.graduated {
+    background-color: darkgoldenrod;
+}
+
+.drop-off {
+    background-color: darkgrey;
+}
+
+.mytable th{
+    font-family: Microsoft YaHei, SimSun;
+}
+
+.exp_date{
+    background-color: orange;
+}
+
+.outof {
+    background-color: darkred;
+    color:white;
+}

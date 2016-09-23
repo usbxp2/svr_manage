@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block page-header %} {{ name_flag }}详细信息 {% endblock %}
+
+{% block page-content %}
+
+    <form class="form-horizontal" method="POST">{% csrf_token %}
+         {% for field in table_form %}
+          <div class="form-group">
+                {% if field.field.required %}
+                    <label class="col-sm-2 control-label">{{ field.label }}</label>
+                {% else %}
+                    <label style="font-weight: normal" class="col-sm-2 control-label">{{ field.label }}</label>
+                {% endif %}
+                <div class="col-sm-10">
+                    {{ field }}
+                    {% if field.errors %}
+                      <ul>
+    {#                      错误信息可能不止一条，所以用循环分别列出来#}
+                          {% for error in field.errors %}
+                              <li style="color:red;">
+                                  {{ error }}
+                              </li>
+                          {% endfor %}
+                      </ul>
+                    {% endif %}
+                </div>
+
+          </div>
+         {% endfor %}
+         <div class="col-sm-11"></div><button type="submit" class="btn btn-success">保存</button>
+    </form>
+
+{% endblock %}

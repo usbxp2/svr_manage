@@ -1,0 +1,1 @@
+2016-06-13 12:29:57__小明__error__新项目失败2,阿里测试项目1,Not has add permission!2016-06-13 12:32:40__小明__error__新项目失败None,陈里测试2,Not has add permission!2016-06-13 12:35:24__小明__error__新项目失败阿里云计算 限公司,陈里测试2,Not has add permission!2016-06-13 14:28:49__小明__error__新建新建项目失败,阿里云计算 限公司,waefewqgtregret,Not has add permission!2016-06-13 17:08:01__admin__info__登录成功

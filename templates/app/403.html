@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load my_page %}
+
+{% block page-header %} 错误403 {% endblock %}
+
+{% block page-content %}
+    <span style="color:red;">{{ err_msg }}</span>
+{% endblock %}

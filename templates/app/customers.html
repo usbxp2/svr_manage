@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load my_page %}
+
+{% block page-header %}客户信息{% endblock %}
+
+
+{% block page-content %}
+<table class="table table-hover mytable">
+    <thead>
+        <tr>
+            <th>公司名称</th>
+            <th>联系人</th>
+            <th>电话</th>
+            <th>邮箱</th>
+            <th>地址</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers_list %}
+        <tr>
+            <td><a href="{% url 'customers_detail' customer.id %}">{{ customer.name }}</a></td>
+            <td>{{ customer.link_man}}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.address }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- 页码导航 -->
+<nav>
+  <ul class="pagination">
+    {% if customers_list.has_previous %}
+        <li class=""><a href="?page={{ customers_list.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    {% endif %}
+
+    {% for page_num in customers_list.paginator.page_range %}
+     {% if page_num == customers_list.number %}
+        <li class="active"><a href="?page={{ page_num }}">{{ page_num }}<span class="sr-only">(current)</span></a></li>
+     {% else %}
+         #分页标签
+        {% page_cut customers_list.number page_num %}
+     {% endif %}
+    {% endfor %}
+
+    {% if customer_list.has_next %}
+        <li class=""><a href="?page={{ customer_list.next_page_number }}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+
+{#<div style="text-align: center">#}
+{#    <span>#}
+{#        {% if customer_list.has_previous %}#}
+{#             <a href="?page={{ customer_list.previous_page_number }}">上一页</a>#}
+{#        {% endif %}#}
+{#        <span>#}
+{#            {{ customer_list.number }}/{{ customer_list.paginator.num_pages }}#}
+{#        </span>#}
+{#        {% if customer_list.has_next %}#}
+{#            <a href="?page={{ customer_list.next_page_number }}">下一页</a>#}
+{#        {% endif %}#}
+{#    </span>#}
+{#</div>#}
+{% endblock %}
